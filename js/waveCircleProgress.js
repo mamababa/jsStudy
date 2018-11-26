@@ -27,7 +27,11 @@
 
 	function WaveCircleProgress(id) {
 		var myCanvas = document.getElementById(id);
-		this.ctx = myCanvas.getContext("2d");
+		var ctx = myCanvas.getContext("2d");
+		if(!ctx) {
+			return null;
+		}
+		this.ctx = ctx;
 		this.mProgress = mProgress;
 		this.mMaxValue = mMaxValue;
 		this.mCircleColor = mCircleColor;
@@ -198,7 +202,6 @@
 			c.fill();
 			c.restore();
 			if(window.requestAnimationFrame) {
-
 				if(obj.anim) {
 					//清楚重复
 					cancelAnimationFrame(obj.anim);
@@ -213,8 +216,22 @@
 					draw(obj);
 				});
 				obj.anim = id;
+			} else {
+				if(obj.anim) {
+					//清楚重复
+					clearTimeout(obj.anim);
+				}
+				var id = window.setTimeout(function() {
+					//波浪移动
+					mWaveDx += mWaveSpeed;
+					if(mWaveDx >= 2 * mWaveLength) {
+						mWaveDx = 0;
+					}
+					c.clearRect(0, 0, w, h);
+					draw(obj);
+				}, 20);
+				obj.anim = id;
 			}
-
 		}
 	};
 	//画文字
