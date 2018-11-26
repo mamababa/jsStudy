@@ -21,8 +21,13 @@
 	</body>
 
 	<script>
-		var cricle = new WaveCircleProgress("myCanvas")
-		cricle.setProgress(50);
+		var cricle = new WaveCircleProgress("myCanvas");
+			cricle.setProgress(0);
+		var num = 30;
+		setInterval(function() {
+			num++ ;
+			cricle.setProgress(num);
+		}, 1000);
 	</script>
 
 </html>
