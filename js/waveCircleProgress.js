@@ -201,7 +201,7 @@
 			c.closePath();
 			c.fill();
 			c.restore();
-			if(window.requestAnimationFrame) {
+			if(window.requestAnimationFrame) {			
 				if(obj.anim) {
 					//清楚重复
 					cancelAnimationFrame(obj.anim);
